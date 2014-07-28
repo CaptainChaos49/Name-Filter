@@ -1,0 +1,9 @@
+"AddonInfo"
+{
+	"name"			"Player Name Filter"
+	"version"		"1.0"
+	"author_name"	"CaptainKip"
+	"author_url"	""
+	"info"			"Bans users with blacklisted words in their names"
+	"override"		"0"
+}
