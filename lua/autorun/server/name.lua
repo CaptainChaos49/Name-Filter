@@ -1,26 +1,25 @@
-local namebanreason = "Change your name!GTFO"
-local namebantime 	= 1440--If not using
-local badnames 		= {"cunt", "fuck", "shit", "fag", "asshole", "slut" "skank"}
-local nameban       = true
+include(config.lua)
 
 function NameCheckFilter()
 	local plys = player.GetAll()
-	
 	for k, v in pairs(plys) do
-		for ke, va in pairs(badnames) do
+		for ke, va in pairs(namefilterbadnames) do
 			if string.match(string.lower(v:Name()), va) then
-				if nameban == true then
-					RunConsoleCommand("ulx", "ban", v:Name(), namebantime, namebanreason)
-					v:ChatPrint("hi. detected")
+				if namefilter.ban == true then
+					RunConsoleCommand("ulx", "ban", v:Name(), namefilter.banTime, namefilter.reason)
 				else
-					RunConsoleCommand("ulx", "kick", v:Name(), namebantime, namebanreason)
-					v:ChatPrint("hi. detected")	
-					end
-
+					RunConsoleCommand("ulx", "kick", v:Name(), namefilter.banTime, namefilter.reason)
+				end
 			else
-				//v:ChatPrint("not detected.")
+				if namefilter.prefixEnabled == true then
+					for key, val in pairs(namefilterprefix) do
+						if string.match(string.lower(v:Name()), va) then
+							return end
+						end	
+					end
+				end
 			end
 		end
 	end				
 end
-timer.Create("wao", 5, 0, NameCheckFilter)
+timer.Create("NameFilter", 5, 0, NameCheckFilter)
